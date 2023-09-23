@@ -24,5 +24,20 @@ class LobbyManager:
             print("Key not found")
 
         return False
- 
+    
+    def ListLobbies(self) -> list[Lobby]:
+        lobbies: list = []
+
+        for key in self.lobbyMap.keys():
+            lobbies.append(self.lobbyMap[key])
+
+        return lobbies
+    
+    def ListLobbiesDict(self) -> list[Lobby]:
+        lobbies: list = []
+
+        for key in self.lobbyMap.keys():
+            lobbies.append(self.lobbyMap[key].toDict())
+
+        return lobbies
 
