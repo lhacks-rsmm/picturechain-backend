@@ -1,11 +1,16 @@
 from User import User
 from Prompt import Prompt
 from DallE import DallEContext
+from enum import Enum
+
+class LobbyType:
+    Public = 0,
+    Private = 1
 
 class Lobby:
     def __init__(self, _users: list[User], _dalleContext: DallEContext):
         self.users: dict[str, User] = {} 
-
+            
         for user in _users:
             self.users[user.userID] = user
         
