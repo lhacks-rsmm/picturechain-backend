@@ -6,7 +6,7 @@ from enum import Enum
 class LobbyType(Enum):
     Public = 0,
     Private = 1
-
+    
 class Lobby:
     def __init__(self, _lobbyID: str, _lobbyType: LobbyType, _users: list[User], _dalleContext: DallEContext):
         self.lobbyID = _lobbyID
@@ -20,6 +20,7 @@ class Lobby:
         self.prompts: dict[str, Prompt] = {}
         self.dalleContext = _dalleContext
         self.dalleContext.Initialize()
+        self.CurrentTurn: str = self.users.values[0] 
 
     def createPrompt(self, userID:  str, message: str, size: str) -> Prompt:
         prompt: Prompt = None
@@ -46,6 +47,22 @@ class Lobby:
 
         return True
 
+    def changeTurn(self) -> str: 
+        vals: list[str] = self.users.values()
+
+        currentTurn = 0
+
+        for x in range(len(self.users.values)):
+            if (self.users.values[x] == self.CurrentTurn):
+                currentTurn = x
+                break
+        currentTurn += 1
+        
+        if (currentTurn >= len(self.users.values())):
+            currentTurn = 0
+        self.CurrrentTurn = self.users.values[currentTurn]
+        return self.CurrentTurn
+
     def removeUser(self, userID: str) -> bool:
         try:
             del self.users[userID]
@@ -63,7 +80,8 @@ class Lobby:
 
         return dict({
             "id": self.lobbyID,
-            "type": str(self.lobbyType),
+            "type": self.lobbyType.value,
+            
             "prompts": promptDict,
         }) 
 

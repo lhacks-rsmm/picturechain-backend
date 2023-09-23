@@ -50,7 +50,8 @@ async def joinLobby(joinModel: JoinModel, _lobbyManager: Annotated[LobbyManager,
         _lobbyManager.lobbyMap[joinModel.lobbyID].addUser(User(joinModel.userID, ""))
     except KeyError:
         raise HTTPException(status_code=500, detail=f"Lobby {joinModel.lobbyID} does not exist.")
-
+    except:
+        return {"error": "User already exists"}
 
 @app.post("/prompt")
 async def createPrompt(promptModel: PromptModel, _lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):
@@ -59,7 +60,14 @@ async def createPrompt(promptModel: PromptModel, _lobbyManager: Annotated[LobbyM
     except KeyError:
         raise HTTPException(status_code=500, detail=f"Lobby {promptModel.lobbyID} does not exist.")
 
-@app.post
+@app.get("/changeTurn/{lobbyID}")
+async def changeTurn(lobbyID: str, _lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):
+    turn: str = None
+    try:
+        turn = _lobbyManager.lobbyMap[lobbyID].changeTurn()
+    except KeyError:
+        return {"error": f"Lobby {lobbyID} does not exist."} 
+    return turn
 
 @app.get("/getLobbies")
 async def getLobbies(_lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):
