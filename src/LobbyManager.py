@@ -1,12 +1,14 @@
 from Lobby import Lobby
 from User import User
+from DallE import DallEContext
 
 class LobbyManager:
-    def __init__(self):
+    def __init__(self, _apiKey: str): 
         self.lobbyMap: dict[str, Lobby]
+        self.apiKey = _apiKey
 
     def createLobby(self, users: list[User]):
-        return Lobby(users)
+        return Lobby(users, DallEContext(self.apiKey))
 
     def deleteLobby(self, id: str):    
         try:
