@@ -6,6 +6,8 @@ from User import User
 def main() :
     lobbyManager = LobbyManager("") # DO NOT PUSH TO GITHUB
     lobby = lobbyManager.createLobby([User("123", "Jack")], LobbyType.Public)
-    print(lobby.createPrompt("123", "air guitar", "512x512").toDict())
+    lobby.createPrompt("123", "air guitar", "512x512").toDict()
+    print(lobby.toDict())
+
 
 main()

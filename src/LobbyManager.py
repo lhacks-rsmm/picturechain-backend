@@ -1,6 +1,7 @@
 from Lobby import Lobby, LobbyType
 from User import User
 from DallE import DallEContext
+import uuid
 
 class LobbyManager:
     def __init__(self, _apiKey: str): 
@@ -8,7 +9,7 @@ class LobbyManager:
         self.apiKey = _apiKey
 
     def createLobby(self, users: list[User], lobbyType: LobbyType) -> Lobby:
-        return Lobby(lobbyType, users, DallEContext(self.apiKey))
+        return Lobby(str(uuid.uuid4()), lobbyType, users, DallEContext(self.apiKey))
 
     def deleteLobby(self, id: str):
         try:
