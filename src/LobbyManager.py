@@ -11,12 +11,12 @@ class LobbyManager:
     def createLobby(self, users: list[User], lobbyType: LobbyType) -> Lobby:
         return Lobby(str(uuid.uuid4()), lobbyType, users, DallEContext(self.apiKey))
 
-    def deleteLobby(self, id: str):
+    def deleteLobby(self, id: str) -> bool:
         try:
             del self.lobbyMap[id]
             return True
 
         except KeyError as e:
             print("Key not found")
-        return False
 
+        return False

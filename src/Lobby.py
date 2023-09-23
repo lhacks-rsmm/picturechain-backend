@@ -64,7 +64,7 @@ class Lobby:
 
         return dict({
             "id": self.lobbyID,
-            "type": str(self.lobbyType[0]),
+            "type": str(self.lobbyType),
             "prompts": promptDict,
         }) 
 
