@@ -37,10 +37,30 @@ class Lobby:
  
         return prompt
 
+    def addUser(self, user: User) -> bool:
+        if (user.userID in self.users.keys()):
+            self.users[user.userID] = user
+            raise Exception(f"User with ID {user.userID} already exists.")
+
+        self.users[user.userID] = user
+
+        return True
+
+    def removeUser(self, userID: str) -> bool:
+        try:
+            del self.users[userID]
+
+        except KeyError as e:
+            print(f"User with ID {userID} does not exist.")
+            return False
+
+        return True
+
     def toDict(self):
         promptDict: dict = {}
         for key in self.prompts.keys():
             promptDict[key] = self.prompts[key].toDict()
+
 
         return dict({
             "id": self.lobbyID,
