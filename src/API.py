@@ -12,6 +12,10 @@ class LobbyModel(BaseModel):
     userID: str
     lobbyType: int
 
+class JoinModel(BaseModel):
+    lobbyID: str
+    userID: str
+
 class PromptModel(BaseModel):
     lobbyID: str
     userID: str
@@ -27,6 +31,10 @@ async def getLobbyManager():
 async def createLobby(lobbyModel: LobbyModel, _lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):
     return _lobbyManager.createLobby([User(lobbyModel.userID, "")], LobbyType(lobbyModel.lobbyType))
 
+@app.post("/joinLoby")
+async def createLobby(joinModel: JoinModel, _lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):
+    return _lobbyManager.lobbyMap[joinModel.lobbyID].addUser(User(joinModel.userID, ""))
+
 @app.post("/prompt")
 async def createPrompt(promptModel: PromptModel, _lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):
     try:
@@ -40,4 +48,6 @@ async def getLobby(lobbyID: str, _lobbyManager: Annotated[LobbyManager, Depends(
         return _lobbyManager.lobbyMap[lobbyID].toDict()
     except KeyError:
         raise HTTPException(status_code=500, detail=f"Lobby {promptModel.lobbyID} does not exist.")
+    
+
 
