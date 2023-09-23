@@ -1,4 +1,4 @@
 class User:
-    def __init__(self, id, name):
+    def __init__(self, id: str, name: str):
         self.id
         self.name
