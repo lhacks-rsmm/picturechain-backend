@@ -3,7 +3,7 @@ from Prompt import Prompt
 from DallE import DallEContext
 from enum import Enum
 
-class LobbyType():
+class LobbyType(Enum):
     Public = 0,
     Private = 1
 
@@ -60,7 +60,6 @@ class Lobby:
         promptDict: dict = {}
         for key in self.prompts.keys():
             promptDict[key] = self.prompts[key].toDict()
-
 
         return dict({
             "id": self.lobbyID,

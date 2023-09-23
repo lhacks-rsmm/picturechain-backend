@@ -5,11 +5,15 @@ import uuid
 
 class LobbyManager:
     def __init__(self, _apiKey: str): 
-        self.lobbyMap: dict[str, Lobby]
+        self.lobbyMap: dict[str, Lobby] = {}
         self.apiKey = _apiKey
 
-    def createLobby(self, users: list[User], lobbyType: LobbyType) -> Lobby:
-        return Lobby(str(uuid.uuid4()), lobbyType, users, DallEContext(self.apiKey))
+    def createLobby(self, users: list[User], lobbyType: LobbyType) -> dict:
+        lobby = Lobby(str(uuid.uuid4()), lobbyType, users, DallEContext(self.apiKey))
+
+        self.lobbyMap[lobby.lobbyID] = lobby
+
+        return lobby.toDict()
 
     def deleteLobby(self, id: str) -> bool:
         try:
@@ -20,3 +24,5 @@ class LobbyManager:
             print("Key not found")
 
         return False
+ 
+
