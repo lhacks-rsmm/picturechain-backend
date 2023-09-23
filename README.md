@@ -12,6 +12,7 @@ Backend for picture chain
 ## API Endpoints
 
 * /createLobby
+<pre>
     Creates a lobby with a user
     Method: POST
     Headers: 
@@ -21,8 +22,9 @@ Backend for picture chain
             "userID": string,
             "lobbyType": int 
         }
-
-* /joinLoby
+</pre>
+* /joinLobby
+<pre> 
     Adds the given user to the given lobby
     Method: POST
     Headers: 
@@ -32,8 +34,10 @@ Backend for picture chain
             "userID": string,
             "lobbyID": string 
         }
+</pre> 
 
 * /prompt
+<pre> 
     Creates a prompt
     Method: POST
     Headers: 
@@ -44,10 +48,13 @@ Backend for picture chain
             "userID": string,
             "message": string
         }
+</pre> 
 
-* /getLobby/{lobbyID} 
+* /getLobby/{lobbyID}
+<pre> 
     Returns the state of the given lobby.
     Method: GET
 
     Params:
         lobbyID: int
+</pre>

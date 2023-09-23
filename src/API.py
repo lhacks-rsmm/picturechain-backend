@@ -31,8 +31,8 @@ async def getLobbyManager():
 async def createLobby(lobbyModel: LobbyModel, _lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):
     return _lobbyManager.createLobby([User(lobbyModel.userID, "")], LobbyType(lobbyModel.lobbyType))
 
-@app.post("/joinLoby")
-async def createLobby(joinModel: JoinModel, _lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):
+@app.post("/joinLobby")
+async def joinLobby(joinModel: JoinModel, _lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):
     return _lobbyManager.lobbyMap[joinModel.lobbyID].addUser(User(joinModel.userID, ""))
 
 @app.post("/prompt")
