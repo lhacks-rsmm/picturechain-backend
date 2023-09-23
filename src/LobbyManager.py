@@ -1,4 +1,4 @@
-from Lobby import Lobby
+from Lobby import Lobby, LobbyType
 from User import User
 from DallE import DallEContext
 
@@ -7,8 +7,8 @@ class LobbyManager:
         self.lobbyMap: dict[str, Lobby]
         self.apiKey = _apiKey
 
-    def createLobby(self, users: list[User]) -> Lobby:
-        return Lobby(users, DallEContext(self.apiKey))
+    def createLobby(self, users: list[User], lobbyType: LobbyType) -> Lobby:
+        return Lobby(lobbyType, users, DallEContext(self.apiKey))
 
     def deleteLobby(self, id: str):
         try:
