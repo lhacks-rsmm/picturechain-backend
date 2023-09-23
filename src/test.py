@@ -6,9 +6,6 @@ from User import User
 def main() :
     lobbyManager = LobbyManager("") # DO NOT PUSH TO GITHUB
     lobby = lobbyManager.createLobby([User("123", "Jack")])
-    users = {}
-
-    
-
+    print(lobby.users)
 
 main()
