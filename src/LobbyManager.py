@@ -7,13 +7,14 @@ class LobbyManager:
         self.lobbyMap: dict[str, Lobby]
         self.apiKey = _apiKey
 
-    def createLobby(self, users: list[User]):
+    def createLobby(self, users: list[User]) -> Lobby:
         return Lobby(users, DallEContext(self.apiKey))
 
-    def deleteLobby(self, id: str):    
+    def deleteLobby(self, id: str):
         try:
             del self.lobbyMap[id]
             return True
+
         except KeyError as e:
             print("Key not found")
         return False

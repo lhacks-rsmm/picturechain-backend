@@ -22,7 +22,7 @@ class Lobby:
         self.users: dict[str, User] = {} 
 
         for user in _users:
-            self.users[user.user]
+            self.users[user.userID]
         
         self.prompts: dict[str, Prompt] = {}
         self.dalleContext = _dalleContext
