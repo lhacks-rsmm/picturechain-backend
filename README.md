@@ -22,6 +22,7 @@ Backend for picture chain
             "userID": string,
             "lobbyType": int 
         }
+
 </pre>
 * /joinLobby
 <pre> 
@@ -47,6 +48,10 @@ Backend for picture chain
             "lobbyID": string,
             "userID": string,
             "message": string
+        }
+    Returns: 
+        {
+            "": ""
         }
 </pre> 
 

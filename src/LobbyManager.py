@@ -8,12 +8,12 @@ class LobbyManager:
         self.lobbyMap: dict[str, Lobby] = {}
         self.apiKey = _apiKey
 
-    def createLobby(self, users: list[User], lobbyType: LobbyType) -> dict:
+    def createLobby(self, users: list[User], lobbyType: LobbyType) -> Lobby:
         lobby = Lobby(str(uuid.uuid4()), lobbyType, users, DallEContext(self.apiKey))
 
         self.lobbyMap[lobby.lobbyID] = lobby
 
-        return lobby.toDict()
+        return lobby
 
     def deleteLobby(self, id: str) -> bool:
         try:

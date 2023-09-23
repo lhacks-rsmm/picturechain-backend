@@ -29,7 +29,7 @@ async def getLobbyManager():
 
 @app.post("/createLobby")
 async def createLobby(lobbyModel: LobbyModel, _lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):
-    return _lobbyManager.createLobby([User(lobbyModel.userID, "")], LobbyType(lobbyModel.lobbyType))
+    return _lobbyManager.createLobby([User(lobbyModel.userID, "")], LobbyType(lobbyModel.lobbyType)).toDict()
 
 @app.post("/joinLobby")
 async def joinLobby(joinModel: JoinModel, _lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):
@@ -41,6 +41,7 @@ async def createPrompt(promptModel: PromptModel, _lobbyManager: Annotated[LobbyM
         return _lobbyManager.lobbyMap[promptModel.lobbyID].createPrompt(promptModel.userID, promptModel.message, "512x512")
     except KeyError:
         raise HTTPException(status_code=500, detail=f"Lobby {promptModel.lobbyID} does not exist.")
+
 
 @app.get("/getLobby/{lobbyID}")
 async def getLobby(lobbyID: str, _lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):
