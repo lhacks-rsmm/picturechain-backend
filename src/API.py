@@ -51,4 +51,3 @@ async def getLobby(lobbyID: str, _lobbyManager: Annotated[LobbyManager, Depends(
         raise HTTPException(status_code=500, detail=f"Lobby {promptModel.lobbyID} does not exist.")
     
 
-
