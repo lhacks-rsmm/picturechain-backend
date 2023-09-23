@@ -2,12 +2,72 @@
 from LobbyManager import LobbyManager
 from Lobby import Lobby, LobbyType
 from User import User
+import requests
+import json
 
 def main() :
+    SIZE = "512x512"
     lobbyManager = LobbyManager("") # DO NOT PUSH TO GITHUB
-    lobby = lobbyManager.createLobby([User("123", "Jack")], LobbyType.Public)
-    lobby.createPrompt("123", "air guitar", "512x512").toDict()
-    print(lobby.toDict())
+    lobby = lobbyManager.createLobby([User("123", "Jack"), User("abc", "Tom"), User("12c", "Pops")], LobbyType.Private)
+    print(lobby.createPrompt("abc", "Wacky drawing for a front page of a drawing site", SIZE))
+    # lobby.createPrompt("123", "deus ex machina", SIZE)
+    # lobby.createPrompt("12c", "UI Paint App", SIZE)
+    # print(lobby.addUser(User("$$$", "Money")))
+    # print(lobby.addUser(User("$$$", "Money")))
+    # print(lobby.removeUser("123"))
+    # print(lobby.removeUser("123"))
 
+    
+# def createLobbyTest():
+#     URL = "https://630a-209-87-29-242.ngrok-free.app/createLobby"
+#     header = {
+        
+#         "Content-Type": "application/json" 
+#     }
+
+#     prompt = {
+#         "userID": "123",
+#         "lobbyType": LobbyType.Public.value
+#     }
+
+#     promptJson = json.dumps(prompt)
+#     response = requests.post(URL, headers=header, data=promptJson)
+
+#     print(response)
+#     if int(response.status_code / 100) != 2:
+#         return True
+#     return False
+
+# def joinLobbyTest():
+#     URL = "https://630a-209-87-29-242.ngrok-free.app/joinLobby"
+#     header = {
+#         "Content-Type": application/json
+#     }
+
+#     prompt = {
+#         "userID": "123",
+#         "lobbyID": "abc"
+#     }
+
+#     promptJson = json.dumps(prompt)
+#     response = requests.post(URL, headers=header, data=promptJson)
+
+#     print(response)
+#     if int(response.status_code / 100) != 2:
+#         return True
+#     return False
+
+# def promptTest():
+#     URL = "https://630a-209-87-29-242.ngrok-free.app/prompt"
+
+# if createLobbyTest():
+#     print("Create Lobby: OK!")
+# else
+#     print("Create Lobby: ERROR")
+# if joinLobbyTest():
+#     print("Join Lobby: OK!")
+# else
+#     print("Join Lobby: ERROR")
 
 main()
+
