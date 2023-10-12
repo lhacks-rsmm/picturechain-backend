@@ -20,7 +20,7 @@ class Lobby:
         self.prompts: dict[str, Prompt] = {}
         self.dalleContext = _dalleContext
         self.dalleContext.Initialize()
-        self.CurrentTurn: str = self.users.values[0] 
+        self.CurrentTurn: str = self.users.values()
 
     def createPrompt(self, userID:  str, message: str, size: str) -> Prompt:
         prompt: Prompt = None
@@ -52,15 +52,18 @@ class Lobby:
 
         currentTurn = 0
 
-        for x in range(len(self.users.values)):
-            if (self.users.values[x] == self.CurrentTurn):
-                currentTurn = x
+        for value in self.users.values:
+            if (value == self.CurrentTurn):
                 break
+            currentTurn += 1
+
         currentTurn += 1
         
         if (currentTurn >= len(self.users.values())):
             currentTurn = 0
-        self.CurrrentTurn = self.users.values[currentTurn]
+
+        self.CurrrentTurn = list(self.users.values)[0]
+
         return self.CurrentTurn
 
     def removeUser(self, userID: str) -> bool:
@@ -81,7 +84,6 @@ class Lobby:
         return dict({
             "id": self.lobbyID,
             "type": self.lobbyType.value,
-            
             "prompts": promptDict,
         }) 
 

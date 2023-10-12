@@ -6,20 +6,20 @@ from User import User
 from typing import Annotated 
 from Lobby import LobbyType
 from LobbyManager import LobbyManager
-
+import json
 app = FastAPI()
 
-origins = [
-    "*"
-]
+# origins = [
+#     "*"
+# ]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 class LobbyModel(BaseModel):
     userID: str
@@ -42,7 +42,10 @@ async def getLobbyManager():
 
 @app.post("/createLobby")
 async def createLobby(lobbyModel: LobbyModel, _lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):
-    return _lobbyManager.createLobby([User(lobbyModel.userID, "")], LobbyType(lobbyModel.lobbyType)).toDict()
+    t = LobbyType.Public
+    if (lobbyModel.lobbyType == 1):
+        t = LobbyType.Private
+    return _lobbyManager.createLobby([User(lobbyModel.userID, "")], t).toDict()
 
 @app.post("/joinLobby")
 async def joinLobby(joinModel: JoinModel, _lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):
