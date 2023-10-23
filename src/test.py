@@ -2,14 +2,14 @@
 from LobbyManager import LobbyManager
 from Lobby import Lobby, LobbyType
 from User import User
-import requests
-import json
+import os
+import sys
 
 def main() :
     SIZE = "512x512"
-    lobbyManager = LobbyManager("") # DO NOT PUSH TO GITHUB
+    lobbyManager = LobbyManager(os.environ["OPENAIKEY"])     
     lobby = lobbyManager.createLobby([User("123", "Jack"), User("abc", "Tom"), User("12c", "Pops")], LobbyType.Private)
-    print(lobby.createPrompt("abc", "Wacky drawing for a front page of a drawing site", SIZE))
+    print(lobby.createPrompt("abc", sys.argv[1], SIZE).result)
     # lobby.createPrompt("123", "deus ex machina", SIZE)
     # lobby.createPrompt("12c", "UI Paint App", SIZE)
     # print(lobby.addUser(User("$$$", "Money")))

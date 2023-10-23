@@ -24,6 +24,7 @@ class Lobby:
 
     def createPrompt(self, userID:  str, message: str, size: str) -> Prompt:
         prompt: Prompt = None
+            
         if (not(userID in self.users.keys())):
             print(f"User with ID {userID} not found.")
             return prompt
