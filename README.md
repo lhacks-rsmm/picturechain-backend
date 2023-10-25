@@ -8,7 +8,6 @@ Backend for picture chain
 `cd src`
 `uvicorn API:app --reload`
 
-
 ## API Endpoints
 
 * /createLobby
@@ -51,7 +50,9 @@ Backend for picture chain
         }
     Returns: 
         {
-            "": ""
+            "id": string,
+            "message": string,
+            "result": string
         }
 </pre> 
 
@@ -63,3 +64,5 @@ Backend for picture chain
     Params:
         lobbyID: int
 </pre>
+
+

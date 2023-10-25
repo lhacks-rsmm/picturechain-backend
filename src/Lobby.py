@@ -77,7 +77,7 @@ class Lobby:
 
         return True
 
-    def toDict(self):
+    def toDict(self) -> dict:
         promptDict: dict = {}
         for key in self.prompts.keys():
             promptDict[key] = self.prompts[key].toDict()
@@ -85,6 +85,7 @@ class Lobby:
         return dict({
             "id": self.lobbyID,
             "type": self.lobbyType.value,
+            "usercount": len(self.users),
             "prompts": promptDict,
         }) 
 
