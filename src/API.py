@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from User import User
 from typing import Annotated 
-from Lobby import LobbyType
+from Lobby import Lobby, LobbyType
 from LobbyManager import LobbyManager
 import json
 
@@ -50,12 +50,18 @@ async def createLobby(lobbyModel: LobbyModel, _lobbyManager: Annotated[LobbyMana
 
 @app.post("/joinLobby")
 async def joinLobby(joinModel: JoinModel, _lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):
+    lobby: Lobby = None
+
     try:
-        _lobbyManager.lobbyMap[joinModel.lobbyID].addUser(User(joinModel.userID, ""))
+        lobby = _lobbyManager.lobbyMap[joinModel.lobbyID]
+        lobby.addUser(User(joinModel.userID, ""))
     except KeyError:
         raise HTTPException(status_code=500, detail=f"Lobby {joinModel.lobbyID} does not exist.")
     except:
         return {"error": "User already exists"}
+    
+    return lobby
+
 
 @app.post("/prompt")
 async def createPrompt(promptModel: PromptModel, _lobbyManager: Annotated[LobbyManager, Depends(getLobbyManager)]):

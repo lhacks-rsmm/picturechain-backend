@@ -18,9 +18,9 @@ class Lobby:
 
         self.lobbyType: LobbyType = _lobbyType        
         self.prompts: dict[str, Prompt] = {}
-        self.dalleContext = _dalleContext
+        self.dalleContext: DallEContext = _dalleContext
         self.dalleContext.Initialize()
-        self.CurrentTurn: str = self.users.values()
+        self.CurrentTurn: str = list(self.users.values())
 
     def createPrompt(self, userID:  str, message: str, size: str) -> Prompt:
         prompt: Prompt = None
