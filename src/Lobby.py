@@ -24,9 +24,9 @@ class Lobby:
         self.dalleContext.Initialize()
         self.CurrentTurn: str = list(self.users.values())
         self.round: int = 1
-        self.HasStarted: bool = false
+        self.hasStarted: bool = False
         self.prompts: list[list] = [] # 2D list
-    
+        self.maxRound: int = -1
 
     def createPrompt(self, userID:  str, message: str, size: str) -> Prompt:
         prompt: Prompt = None
@@ -38,7 +38,7 @@ class Lobby:
         try: 
             result = self.dalleContext.Prompt(message, size)
             prompt = Prompt(result["created"], message, result)
-            self.prompts[prompt.promptID] = prompt
+            self.prompts[self.users[userID].num + round] = prompt #shifts depending on round
 
         except Exception as e:
             print(e)
@@ -53,27 +53,32 @@ class Lobby:
             raise Exception(f"Lobby is full.")
 
         self.users[user.userID] = user
+        self.prompts.append([])
 
         return True
 
-    def changeTurn(self) -> str: 
-        vals: list[str] = self.users.values()
+    # needs to be changed? now has rounds instead of turns per player
+    def changeTurn(self) -> str: #def isRoundDone(self) -> bool
+        # vals: list[str] = self.users.values()
 
-        currentTurn = 0
+        # currentTurn = 0
 
-        for value in self.users.values:
-            if (value == self.CurrentTurn):
-                break
-            currentTurn += 1
+        # for value in self.users.values:
+        #     if (value == self.CurrentTurn):
+        #         break
+        #     currentTurn += 1
 
-        currentTurn += 1
+        # currentTurn += 1
         
-        if (currentTurn >= len(self.users.values())):
-            currentTurn = 0
+        # if (currentTurn >= len(self.users.values())):
+        #     currentTurn = 0
 
-        self.CurrrentTurn = list(self.users.values)[0]
+        # self.CurrrentTurn = list(self.users.values)[0]
 
-        return self.CurrentTurn
+        # return self.CurrentTurn
+        
+        isRoundFinished: bool = len(self.prompts[self.round]) == len(self.users)
+        return isRoundFinished
 
     def removeUser(self, userID: str) -> bool:
         try:
@@ -97,4 +102,7 @@ class Lobby:
             "prompts": promptDict,
         }) 
 
+    def startGame(self):
+        self.hasStarted = True
+        self.maxRound = len(self.users)
 

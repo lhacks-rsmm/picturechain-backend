@@ -3,3 +3,7 @@ class User:
         self.userID: str = _userID
         self.name: str = _name
         self.inLobby: bool = False
+        self.num: int = -1
+    
+    def setNum(self, _num: int):
+        self.num = _num
