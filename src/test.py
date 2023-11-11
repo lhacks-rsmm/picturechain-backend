@@ -6,10 +6,18 @@ import os
 import sys
 
 def main() :
-    SIZE = "512x512"
-    lobbyManager = LobbyManager(os.environ["OPENAIKEY"])     
-    lobby = lobbyManager.createLobby([User("123", "Jack"), User("abc", "Tom"), User("12c", "Pops")], LobbyType.Private)
-    print(lobby.createPrompt("abc", sys.argv[1], SIZE).result)
+    URL = 'http://127.0.0.1:8000'
+    # endpoints : /getLobby, /joinLobby, etc
+    # GET, POST
+    
+
+
+
+
+    # SIZE = "512x512"
+    # lobbyManager = LobbyManager(os.environ["OPENAIKEY"])     
+    # lobby = lobbyManager.createLobby([User("123", "Jack"), User("abc", "Tom"), User("12c", "Pops")], LobbyType.Private)
+    # print(lobby.createPrompt("abc", sys.argv[1], SIZE).result)
     # lobby.createPrompt("123", "deus ex machina", SIZE)
     # lobby.createPrompt("12c", "UI Paint App", SIZE)
     # print(lobby.addUser(User("$$$", "Money")))

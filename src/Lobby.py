@@ -8,6 +8,8 @@ class LobbyType(Enum):
     Private = 1
     
 class Lobby:
+    maxUser: int = 10
+
     def __init__(self, _lobbyID: str, _lobbyType: LobbyType, _users: list[User], _dalleContext: DallEContext):
         self.lobbyID = _lobbyID
         
@@ -17,10 +19,14 @@ class Lobby:
             self.users[user.userID] = user
 
         self.lobbyType: LobbyType = _lobbyType        
-        self.prompts: dict[str, Prompt] = {}
+        # self.prompts: dict[str, Prompt] = {} I don't dare to delete this just in case
         self.dalleContext: DallEContext = _dalleContext
         self.dalleContext.Initialize()
         self.CurrentTurn: str = list(self.users.values())
+        self.round: int = 1
+        self.HasStarted: bool = false
+        self.prompts: list[list] = [] # 2D list
+    
 
     def createPrompt(self, userID:  str, message: str, size: str) -> Prompt:
         prompt: Prompt = None
@@ -43,6 +49,8 @@ class Lobby:
         if (user.userID in self.users.keys()):
             self.users[user.userID] = user
             raise Exception(f"User with ID {user.userID} already exists.")
+        elif (len(self.users) > max):
+            raise Exception(f"Lobby is full.")
 
         self.users[user.userID] = user
 
